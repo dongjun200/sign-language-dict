@@ -9,22 +9,40 @@
     --bg:#0f1220; --panel:#181c2e; --card:#1e2338; --card-h:#262c47;
     --text:#eef1ff; --muted:#9aa3c4; --accent:#6c8cff; --accent-2:#39d0c4;
     --border:#2a3050; --shadow:0 8px 28px rgba(0,0,0,.35);
+    --header-bg:rgba(15,18,32,.82); --thumb:#0c0f1c;
+    --body-grad:radial-gradient(1200px 700px at 50% -10%,#1a2040 0%,var(--bg) 60%);
+  }
+  body.light{
+    --bg:#eef1f8; --panel:#ffffff; --card:#ffffff; --card-h:#eef2fb;
+    --text:#1a2030; --muted:#5b6480; --accent:#4a6cf7; --accent-2:#0fb5a8;
+    --border:#dfe4f0; --shadow:0 10px 30px rgba(40,60,120,.14);
+    --header-bg:rgba(255,255,255,.85); --thumb:#eef1f8;
+    --body-grad:radial-gradient(1200px 700px at 50% -10%,#dde6fb 0%,var(--bg) 60%);
   }
   *{box-sizing:border-box}
   html,body{margin:0;padding:0}
   body{
-    background:radial-gradient(1200px 700px at 50% -10%,#1a2040 0%,var(--bg) 60%);
+    background:var(--body-grad);
     color:var(--text); min-height:100vh;
     font-family:"Apple SD Gothic Neo","Malgun Gothic","Noto Sans KR",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
     -webkit-font-smoothing:antialiased;
+    transition:background .25s, color .25s;
   }
   header{
     position:sticky; top:0; z-index:20;
-    background:rgba(15,18,32,.82); backdrop-filter:blur(12px);
+    background:var(--header-bg); backdrop-filter:blur(12px);
     border-bottom:1px solid var(--border); padding:18px 20px 14px;
   }
   .wrap{max-width:1500px; margin:0 auto}
-  .title{display:flex; align-items:baseline; gap:12px; flex-wrap:wrap}
+  .title{display:flex; align-items:center; justify-content:space-between; gap:12px; flex-wrap:wrap}
+  .title-left{display:flex; align-items:baseline; gap:12px; flex-wrap:wrap}
+  .theme-toggle{
+    display:flex; align-items:center; gap:7px; flex-shrink:0;
+    padding:8px 14px; font-size:14px; font-weight:600; border-radius:999px; cursor:pointer;
+    background:var(--panel); border:1px solid var(--border); color:var(--text);
+    transition:all .15s; user-select:none;
+  }
+  .theme-toggle:hover{background:var(--card-h); border-color:var(--accent)}
   h1{font-size:24px; margin:0; letter-spacing:-.5px}
   .sub{color:var(--muted); font-size:13px}
   .searchbar{position:relative; margin:14px 0 12px}
@@ -53,7 +71,7 @@
   .count{color:var(--muted); font-size:13px; margin-bottom:14px}
   .grid{
     display:grid; gap:16px;
-    grid-template-columns:repeat(auto-fill,minmax(190px,1fr));
+    grid-template-columns:repeat(5,1fr);
   }
   .card{
     background:var(--card); border:1px solid var(--border); border-radius:16px;
@@ -62,7 +80,7 @@
   }
   .card:hover{transform:translateY(-4px); box-shadow:var(--shadow); border-color:var(--accent)}
   .thumb{
-    position:relative; width:100%; aspect-ratio:4/3; background:#0c0f1c;
+    position:relative; width:100%; aspect-ratio:4/3; background:var(--thumb);
     display:flex; align-items:center; justify-content:center; overflow:hidden;
   }
   .thumb img{width:100%; height:100%; object-fit:contain; display:block}
@@ -74,27 +92,29 @@
   /* modal */
   .modal{
     position:fixed; inset:0; z-index:50; display:none;
-    align-items:center; justify-content:center; padding:24px;
-    background:rgba(6,8,18,.78); backdrop-filter:blur(6px);
+    align-items:center; justify-content:center; padding:2vh 2vw;
+    background:rgba(6,8,18,.82); backdrop-filter:blur(6px);
   }
   .modal.open{display:flex}
   .dialog{
     background:var(--card); border:1px solid var(--border); border-radius:20px;
-    max-width:min(92vw,680px); width:100%; box-shadow:var(--shadow); overflow:hidden;
-    animation:pop .18s ease;
+    max-width:min(96vw,1400px); width:100%; max-height:96vh;
+    display:flex; flex-direction:column;
+    box-shadow:var(--shadow); overflow:hidden; animation:pop .18s ease;
   }
-  @keyframes pop{from{transform:scale(.94); opacity:0}to{transform:scale(1); opacity:1}}
-  .dialog .head{display:flex; align-items:center; justify-content:space-between; padding:16px 20px; border-bottom:1px solid var(--border)}
-  .dialog .head .w{font-size:24px; font-weight:700}
-  .dialog .head .x{background:none; border:none; color:var(--muted); font-size:28px; cursor:pointer; line-height:1; padding:4px}
-  .dialog .body{background:#0c0f1c; display:flex; align-items:center; justify-content:center; padding:18px; min-height:300px}
-  .dialog .body img{max-width:100%; max-height:68vh; object-fit:contain}
+  @keyframes pop{from{transform:scale(.96); opacity:0}to{transform:scale(1); opacity:1}}
+  .dialog .head{display:flex; align-items:center; justify-content:space-between; padding:16px 24px; border-bottom:1px solid var(--border); flex-shrink:0}
+  .dialog .head .w{font-size:30px; font-weight:700}
+  .dialog .head .x{background:none; border:none; color:var(--muted); font-size:30px; cursor:pointer; line-height:1; padding:4px}
+  .dialog .body{background:var(--thumb); display:flex; align-items:center; justify-content:center; padding:18px; flex:1; min-height:0}
+  .dialog .body img{max-width:100%; max-height:100%; width:auto; height:auto; object-fit:contain}
   .dialog .foot{padding:12px 20px; color:var(--muted); font-size:13px; display:flex; gap:14px; align-items:center}
   .nav{position:absolute; top:50%; transform:translateY(-50%); background:rgba(0,0,0,.4); border:1px solid var(--border); color:#fff; width:46px; height:46px; border-radius:50%; font-size:22px; cursor:pointer; display:flex; align-items:center; justify-content:center}
   .nav:hover{background:var(--accent)}
   .nav.prev{left:14px} .nav.next{right:14px}
-  @media (max-width:600px){
-    .grid{grid-template-columns:repeat(auto-fill,minmax(140px,1fr)); gap:12px}
+  @media (max-width:1100px){ .grid{grid-template-columns:repeat(3,1fr)} }
+  @media (max-width:680px){
+    .grid{grid-template-columns:repeat(2,1fr); gap:12px}
     h1{font-size:20px} .word{font-size:16px}
   }
 </style>
@@ -103,8 +123,11 @@
 <header>
   <div class="wrap">
     <div class="title">
-      <h1>수어 단어 사전</h1>
-      <span class="sub">한국 수어 단어 67개 · 검색하거나 카테고리를 눌러 찾아보세요</span>
+      <div class="title-left">
+        <h1>수어 단어 사전</h1>
+        <span class="sub">한국 수어 단어 67개 · 검색하거나 카테고리를 눌러 찾아보세요</span>
+      </div>
+      <button class="theme-toggle" id="themeBtn" aria-label="테마 전환"></button>
     </div>
     <div class="searchbar">
       <span class="ico">🔍</span>
@@ -257,6 +280,20 @@ document.addEventListener('keydown',(e)=>{
 
 searchEl.addEventListener('input',render);
 clearEl.onclick=()=>{ searchEl.value=''; searchEl.focus(); render(); };
+
+// 다크/라이트 테마 토글 (선택값 저장)
+const themeBtn=document.getElementById('themeBtn');
+function applyTheme(t){
+  const light = t==='light';
+  document.body.classList.toggle('light', light);
+  themeBtn.textContent = light ? '🌙 다크' : '☀️ 라이트';
+}
+applyTheme(localStorage.getItem('theme') || 'dark');
+themeBtn.onclick=()=>{
+  const next = document.body.classList.contains('light') ? 'dark' : 'light';
+  localStorage.setItem('theme', next);
+  applyTheme(next);
+};
 
 buildTabs();
 render();
