@@ -98,16 +98,16 @@
   .modal.open{display:flex}
   .dialog{
     background:var(--card); border:1px solid var(--border); border-radius:20px;
-    max-width:min(96vw,1400px); width:100%; max-height:96vh;
+    width:auto; max-width:96vw; max-height:96vh;
     display:flex; flex-direction:column;
     box-shadow:var(--shadow); overflow:hidden; animation:pop .18s ease;
   }
   @keyframes pop{from{transform:scale(.96); opacity:0}to{transform:scale(1); opacity:1}}
-  .dialog .head{display:flex; align-items:center; justify-content:space-between; padding:16px 24px; border-bottom:1px solid var(--border); flex-shrink:0}
+  .dialog .head{display:flex; align-items:center; justify-content:space-between; gap:24px; padding:16px 24px; border-bottom:1px solid var(--border); flex-shrink:0}
   .dialog .head .w{font-size:30px; font-weight:700}
   .dialog .head .x{background:none; border:none; color:var(--muted); font-size:30px; cursor:pointer; line-height:1; padding:4px}
-  .dialog .body{background:var(--thumb); display:flex; align-items:center; justify-content:center; padding:18px; flex:1; min-height:0}
-  .dialog .body img{max-width:100%; max-height:100%; width:auto; height:auto; object-fit:contain}
+  .dialog .body{background:var(--thumb); display:flex; align-items:center; justify-content:center; padding:14px}
+  .dialog .body img{display:block; height:80vh; width:auto; max-width:92vw; object-fit:contain}
   .dialog .foot{padding:12px 20px; color:var(--muted); font-size:13px; display:flex; gap:14px; align-items:center}
   .nav{position:absolute; top:50%; transform:translateY(-50%); background:rgba(0,0,0,.4); border:1px solid var(--border); color:#fff; width:46px; height:46px; border-radius:50%; font-size:22px; cursor:pointer; display:flex; align-items:center; justify-content:center}
   .nav:hover{background:var(--accent)}
