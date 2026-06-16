@@ -125,7 +125,7 @@
     <div class="title">
       <div class="title-left">
         <h1>수어 단어 사전</h1>
-        <span class="sub">한국 수어 단어 67개 · 검색하거나 카테고리를 눌러 찾아보세요</span>
+        <span class="sub">한국 수어 단어 · 검색하거나 카테고리를 눌러 찾아보세요</span>
       </div>
       <button class="theme-toggle" id="themeBtn" aria-label="테마 전환"></button>
     </div>
@@ -150,7 +150,7 @@
       <button class="x" id="mClose" aria-label="닫기">×</button>
     </div>
     <div class="body"><img id="mImg" alt=""></div>
-    <div class="foot"><span id="mCat"></span><span id="mIdx"></span></div>
+    <div class="foot"><span id="mCat"></span></div>
   </div>
   <button class="nav next" id="next" aria-label="다음">›</button>
 </div>
@@ -214,7 +214,7 @@ function buildTabs(){
   const cats = ["전체",...CAT_ORDER.filter(c=>counts[c])];
   tabsEl.innerHTML = cats.map(c=>{
     const n = c==="전체" ? items.length : counts[c];
-    return `<div class="tab${c===activeCat?' active':''}" data-cat="${c}">${c}<span class="cnt">${n}</span></div>`;
+    return `<div class="tab${c===activeCat?' active':''}" data-cat="${c}">${c}</div>`;
   }).join('');
   tabsEl.querySelectorAll('.tab').forEach(t=>{
     t.onclick=()=>{ activeCat=t.dataset.cat; buildTabs(); render(); };
@@ -262,7 +262,6 @@ const modal=document.getElementById('modal');
 const mImg=document.getElementById('mImg');
 const mWord=document.getElementById('mWord');
 const mCat=document.getElementById('mCat');
-const mIdx=document.getElementById('mIdx');
 let curPos=0; // visible 배열 내 위치
 
 function openModal(globalIdx){
@@ -275,7 +274,6 @@ function showModal(){
   const it=visible[curPos];
   mWord.textContent=it.word;
   mCat.textContent="🏷 "+it.cat;
-  mIdx.textContent=`${curPos+1} / ${visible.length}`;
   mImg.src=src(it);
   mImg.alt=it.word+" 수어";
 }
